@@ -1,0 +1,191 @@
+from tkinter import *
+import cv2
+import os
+from PIL import Image,ImageTk
+
+
+root=Tk()
+root.title('Photo Editor')
+root.geometry('1000x1000') 
+root.configure(bg='#0a172a')
+
+
+#ADDING BORDER 
+
+upload=Image.open("C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor/border.jpg")
+photo= ImageTk.PhotoImage(upload) 
+photoLabel= Label(image= photo, borderwidth=0)
+photoLabel.config(highlightbackground='#0a172a')  
+photoLabel.place(x=0,y=0)
+
+upload2=Image.open("C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor/border right.jpg")
+photo2= ImageTk.PhotoImage(upload2) 
+photoLabel2= Label(image= photo2, borderwidth=0)
+photoLabel2.config(highlightbackground='#0a172a') 
+photoLabel2.place(x=1060,y=0)
+
+#IMAGE INPUT PROCESS
+
+def ImageEntry():
+    n= ImageName.get()
+    img=cv2.imread(n)
+    cv2.imshow('Your Chosen Image', img)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+    print('You have chosen the image we just displayed.')
+
+ImageEntryLabel= Label(text='Enter Image Path:', bg='#be9848').place(x=135+450, y=0)
+
+ImageName= StringVar()
+ImageEntryField= Entry(root, textvariable= ImageName, bg='#ebdb98').place(x=135+440, y=22)
+ImageEntryButton= Button(text='Enter', command=ImageEntry, bg='#be9848').place(x=135+480, y=42)
+
+#FILTER FUNCTIONS
+
+#grayscale image
+
+def Grayscale():
+    n= ImageName.get()
+    img=cv2.imread(n)
+    print(type(img))
+    global GrayscaleImage
+    GrayscaleImage= cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    cv2.imshow('Grayscale', GrayscaleImage)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+def SaveGrayscale():
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('GrayscaleImage.jpg', GrayscaleImage)
+    print('Image Saved')
+
+
+#negative image
+
+def Negative():
+    n= ImageName.get()
+    img=cv2.imread(n)
+    global NegativeImage
+    NegativeImage= 1 - img
+    cv2.imshow('Your Image In Negative', NegativeImage)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+def SaveNegative():
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('NegativeImage.jpg', NegativeImage)
+    print('Image Saved')
+
+
+#CONVERT TO ANOTHER EXTENSION
+
+#convert to png
+def ConvertAndSaveToPNG():
+    n= ImageName.get()
+    PNGImage=cv2.imread(n)
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('PNGImage.png', PNGImage)
+    print('Image Saved')
+
+#convert to jpg
+def ConvertAndSaveToJPG():
+    n= ImageName.get()
+    JPGImage=cv2.imread(n)
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('JPGImage.jpg', JPGImage)
+    print('Image Saved')
+
+
+#FILTER BUTTONS
+
+GrayscaleLabel= Label(text='Convert To Grayscale:', bg='#be9848').place(x=135+440-143.75, y=100)
+GrayscaleButton= Button(text='Convert', command= Grayscale, bg='#ebdb98').place(x=135+475-152.5+5, y=130)
+SaveGrayscaleButton= Button(text='Save Grayscale', command= SaveGrayscale, bg='#ebdb98').place(x=135+458-148.25, y=160)
+
+
+NegativeLabel= Label(text='Convert To Negative:', bg='#be9848').place(x=135+440-143.5, y=200)
+NegativeButton= Button(text='Convert', command= Negative, bg='#ebdb98').place(x=135+475-152.5+5, y=230)
+SaveNegativeButton= Button(text='Save Negative', command= SaveNegative, bg='#ebdb98').place(x=135+458-148.25, y=260)
+
+
+#CHANGE EXTENSION BUTTONS
+
+ChangeExtensionLabel= Label(text='To Change Extension:', bg='#be9848').place(x=135+440+143.75+10, y=150)
+SaveAsPNGButton= Button(text='Convert and Save as PNG', command=ConvertAndSaveToPNG, bg='#ebdb98').place(x=135+430+152.5, y=150+30)
+SaveAsJPGButton= Button(text='Concert and Save as JPG', command=ConvertAndSaveToJPG, bg='#ebdb98').place(x=135+435+148.25+2.5, y=150+30+30)
+
+#IMAGE RESIZING
+
+ResizeImageLabel= Label(text='To Resize Image:', bg='#be9848').place(x=135+455-147.5, y=300+25+30+30+65-100)
+
+WidthLabel= Label(text='Enter Resized Width:', bg='#be9848').place(x=135+440-143.75+5, y=300+25+30+30+65+32-100)
+Width= IntVar()
+ResizeWidthEntry= Entry(root, textvariable= Width, bg='#ebdb98').place(x=135+440-143.75, y=300+25+30+30+65+32+22-100)
+
+HeightLabel= Label(text='Enter Resized Height:', bg='#be9848').place(x=135+440-143.5+4, y=300+25+30+30+65+32+20+24-100)
+Height= IntVar()
+ResizeHeightEntry= Entry(root, textvariable= Height, bg='#ebdb98').place(x=135+440-143.5, y=300+25+30+30+65+32+20+20+26-100)
+
+def ImageResizing():
+    n= ImageName.get()
+    ImageToResize=cv2.imread(n)
+    print(type(ImageToResize))
+    ResizedImage= cv2.resize(ImageToResize, (Height.get(),Width.get()))
+    cv2.imshow('Your Image Resized', ResizedImage)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('ResizedImage.jpg', ResizedImage)
+    print('Image Saved')
+
+ResizeButton= Button(text='Resize And Save', command= ImageResizing, bg='#be9848').place(x=135+440-143.5+13, y=300+25+30+30+65+30+20+20+20+28-100+2)
+
+# CONVERT TO SKETCH
+
+def MakeAndSaveSketch():
+    i=cv2.imread(ImageName.get())
+
+	#making the sketch
+    img = cv2.cvtColor(i, cv2.COLOR_BGR2RGB)
+    print(type(img))
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_invert = cv2.bitwise_not(img_gray)
+    img_smoothing = cv2.GaussianBlur(img_invert, (21, 21),sigmaX=0, sigmaY=0)
+    sketch = cv2.divide(img_gray, 255 - img_smoothing, scale=255)
+
+	#showing the sketch
+    cv2.imshow('Your Image In Negative', sketch)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+
+	#save the sketch
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('SketchImage.jpg', sketch)
+
+SketchLabel=Label(text='To Convert To Sketch:', bg='#be9848').place(x=135+455+147.5-10+5, y=300+25+30+30+65-150)
+SketchButton= Button(text='Convert And Save', command= MakeAndSaveSketch, bg='#ebdb98').place(x=135+440+143.75+22-10+10, y=300+25+30+30+65+32-150)
+
+
+#IMAGE COMPRESSION
+
+
+def CompressAndSaveJPG():
+    ogimage=ImageName.get()
+    j=cv2.imread(ogimage)
+    JPGQuality= CompressedValue.get()
+
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    cv2.imwrite('CompressedImage.jpg', j, [int(cv2.IMWRITE_JPEG_QUALITY), JPGQuality])
+    print('compressed and saved')
+
+CompressionLabel= Label(text='To Compress Image Size in memory:', bg='#be9848').place(x=135+440+143.75+2.5+12-10-30, y=300+25+30+30+65+10-50-2)
+CompressedValueLabel=Label(text='Enter Compression Value:', bg='#be9848').place(x=135+440+143.75+2.5+12-10, y=300+25+30+30+65+32-50)
+CompressedValue= IntVar()
+CompressedValueEntry= Entry(root, textvariable= CompressedValue, bg='#ebdb98').place(x=135+440+143.75+22-10, y=300+25+30+30+65+32+22-50)
+CompressAndSaveButton= Button(text='Compress And Save', command= CompressAndSaveJPG, bg='#be9848').place(x=135+440+143.75+22-10+4, y=300+25+30+30+65+32+22+22-50)
+
+
+root.mainloop()
+
+
+
+
