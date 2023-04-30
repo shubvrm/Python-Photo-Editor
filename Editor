@@ -12,13 +12,13 @@ root.configure(bg='#0a172a')
 
 #ADDING BORDER 
 
-upload=Image.open("C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor/border.jpg")
+upload=Image.open("border.jpg")
 photo= ImageTk.PhotoImage(upload) 
 photoLabel= Label(image= photo, borderwidth=0)
 photoLabel.config(highlightbackground='#0a172a')  
 photoLabel.place(x=0,y=0)
 
-upload2=Image.open("C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor/border right.jpg")
+upload2=Image.open("border right.jpg")
 photo2= ImageTk.PhotoImage(upload2) 
 photoLabel2= Label(image= photo2, borderwidth=0)
 photoLabel2.config(highlightbackground='#0a172a') 
@@ -54,7 +54,7 @@ def Grayscale():
     cv2.waitKey()
     cv2.destroyAllWindows()
 def SaveGrayscale():
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('GrayscaleImage.jpg', GrayscaleImage)
     print('Image Saved')
 
@@ -70,7 +70,7 @@ def Negative():
     cv2.waitKey()
     cv2.destroyAllWindows()
 def SaveNegative():
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('NegativeImage.jpg', NegativeImage)
     print('Image Saved')
 
@@ -81,7 +81,7 @@ def SaveNegative():
 def ConvertAndSaveToPNG():
     n= ImageName.get()
     PNGImage=cv2.imread(n)
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('PNGImage.png', PNGImage)
     print('Image Saved')
 
@@ -89,7 +89,7 @@ def ConvertAndSaveToPNG():
 def ConvertAndSaveToJPG():
     n= ImageName.get()
     JPGImage=cv2.imread(n)
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('JPGImage.jpg', JPGImage)
     print('Image Saved')
 
@@ -133,7 +133,7 @@ def ImageResizing():
     cv2.waitKey()
     cv2.destroyAllWindows()
 
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('ResizedImage.jpg', ResizedImage)
     print('Image Saved')
 
@@ -158,7 +158,7 @@ def MakeAndSaveSketch():
     cv2.destroyAllWindows()
 
 	#save the sketch
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('SketchImage.jpg', sketch)
 
 SketchLabel=Label(text='To Convert To Sketch:', bg='#be9848').place(x=135+455+147.5-10+5, y=300+25+30+30+65-150)
@@ -173,7 +173,7 @@ def CompressAndSaveJPG():
     j=cv2.imread(ogimage)
     JPGQuality= CompressedValue.get()
 
-    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor')
+    os.chdir('C:/Users/8902/OneDrive/Documents/Code/pythonprograms/pyimageeditor/Tkinter Photo Editor') # your preferred path here
     cv2.imwrite('CompressedImage.jpg', j, [int(cv2.IMWRITE_JPEG_QUALITY), JPGQuality])
     print('compressed and saved')
 
